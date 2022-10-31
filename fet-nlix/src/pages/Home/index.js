@@ -1,30 +1,36 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import api from '../../services/api';
+import { Link } from 'react-router-dom'
+import './home.css';
+// import api from '../../services/api';
 
 //https://api.themoviedb.org/3/movie/now_playing?api_key=e09576ff057c4366522d6b9d11b37d68
 
 function Home(){
-    const [filmes, setFilmes] = useState({});
-
+    const [filmes, setFilmes] = useState([]);
+    
     useEffect(()=>{
-        async function loadFilmes (){
-            const response = await api.get("movie/now_playing",{
-                params:{
-                    api_key: 'e09576ff057c4366522d6b9d11b37d68',
-                    language:'pt-BR',
-                    page:1,
-                }
-            })
-            console.log(response.data.results);
-        }
-       
-        loadFilmes();
-
+        const url = "https://api.themoviedb.org/3/movie/now_playing?api_key=e09576ff057c4366522d6b9d11b37d68"
+        axios.get(url
+            ).then(resp =>{
+                setFilmes(resp.data.results.slice(0,10))
+                console.log(resp.data.results);
+            })    
     }, [])
 
     return(
-        <div>
-            <h1>Bem Vindo a Home</h1>
+        <div className="container">
+            <div className="lista-filmes">
+                {filmes.map((f)=>{
+                    return(
+                        <article key = {f.id}>
+                            <strong>{f.title}</strong><br/>
+                            <img src={`https://image.tmdb.org/t/p/w500/${f.poster_path}`} alt={f.title}/>
+                            <Link to ={`/filme/${f.id}`}>Acessar</Link>
+                        </article>
+                    )
+                })}
+            </div>
         </div>
     )
 }
