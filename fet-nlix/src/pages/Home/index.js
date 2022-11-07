@@ -8,15 +8,26 @@ import './home.css';
 
 function Home(){
     const [filmes, setFilmes] = useState([]);
-    
+    const [loading, setLoading] = useState(true)
     useEffect(()=>{
-        const url = "https://api.themoviedb.org/3/movie/now_playing?api_key=e09576ff057c4366522d6b9d11b37d68"
-        axios.get(url
-            ).then(resp =>{
-                setFilmes(resp.data.results.slice(0,10))
-                console.log(resp.data.results);
-            })    
+
+        async function loadFilmes(){
+            const url = "https://api.themoviedb.org/3/movie/now_playing?api_key=e09576ff057c4366522d6b9d11b37d68"
+            const response = await axios.get(url)
+            setFilmes(response.data.results.slice(0,10))
+            setLoading(false)
+        }
+        loadFilmes()
     }, [])
+
+
+    if(loading){
+        return(
+            <div className="loading">
+                <h2>Carregando Filmes...</h2>
+            </div>
+        )
+    }
 
     return(
         <div className="container">

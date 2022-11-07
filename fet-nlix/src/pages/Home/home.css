@@ -3,7 +3,12 @@
     max-width: 800px;
     margin: 14px;
 }
-
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+}
 .lista-filmes  article{
     width: 100%;
     background-color: white;
