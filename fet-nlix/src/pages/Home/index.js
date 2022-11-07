@@ -36,7 +36,7 @@ function Home(){
                     return(
                         <article key = {f.id}>
                             <strong>{f.title}</strong><br/>
-                            <img src={`https://image.tmdb.org/t/p/w500/${f.poster_path}`} alt={f.title}/>
+                            <img src={`https://image.tmdb.org/t/p/original/${f.poster_path}`} alt={f.title}/>
                             <Link to ={`/filme/${f.id}`}>Acessar</Link>
                         </article>
                     )

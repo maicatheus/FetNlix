@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
+import './filme-info.css';
 
 function Filme(){
     const { id } = useParams();
@@ -38,10 +39,19 @@ function Filme(){
     return(
         <div className="filme-info">
             <h1>{filme.title}</h1>
-            <img src={`https://image.tmdb.org/t/p/w500/${filme.backdrop_path}`} alt={filme.title}/>
+            <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
             <h3>Sinopse</h3>
             <span>{filme.overview}</span>
             <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+            <div className="area-button">
+                <button>Salvar</button>
+                <button>
+                    <a href="#">
+                        Trailer
+                    </a>
+                </button>
+            </div>
         </div>
     )
 }
