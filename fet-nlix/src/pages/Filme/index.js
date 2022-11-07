@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import './filme-info.css';
 
 function Filme(){
     const { id } = useParams();
+    const navigate = useNavigate();
     const [filme, setFilmes] = useState({});
     const [loading, setLoadings] = useState(true);
 
@@ -18,16 +19,16 @@ function Filme(){
                     setLoadings(false)
                 })
                 .catch(()=>{
+                    navigate("/", { replace: true });
                     console.log("Filme nao encontrado");
                 });
         }
         loadFilme();
 
         return() =>{
-            console.log("componente demontado");
         }
 
-    },[])
+    },[id,navigate])
 
     if(loading){
         return(
@@ -47,7 +48,7 @@ function Filme(){
             <div className="area-button">
                 <button>Salvar</button>
                 <button>
-                    <a href="#">
+                    <a target="_blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>
                         Trailer
                     </a>
                 </button>
