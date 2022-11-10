@@ -9,6 +9,17 @@ function Favoritos(){
         setFilmes(JSON.parse(minhaLista) || []);
 
     },[])
+
+    function excluirFilmes(id){
+        let filtroFilmes = filmes.filter((item)=>{
+            return (item.id !== id)
+        })
+
+        setFilmes(filtroFilmes)
+        localStorage.setItem("@fletNix", JSON.stringify(filtroFilmes))
+
+    }
+
     return(
         <div className='meus-filmes'>
             <h1 >Meus filmes</h1>
@@ -20,7 +31,7 @@ function Favoritos(){
                             <span>{filme.title}</span>
                             <div>
                                 <Link to={`/filme/${filme.id}`}>Ver detalhes</Link>
-                                <button>Excluir</button>
+                                <button onClick={()=>excluirFilmes(filme.id)}>Excluir</button>
                             </div>
 
                        </li> 
